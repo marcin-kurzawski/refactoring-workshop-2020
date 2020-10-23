@@ -71,4 +71,39 @@ private:
     bool m_paused;
 };
 
+class handlersClass
+{
+    void handleTimeoutInd();
+    void handleDirectionInd(std::unique_ptr<Event>);
+    void handleFoodInd(std::unique_ptr<Event>);
+    void handleFoodResp(std::unique_ptr<Event>);
+    void handlePauseInd(std::unique_ptr<Event>);
+};
+
+class Snakeclass
+{
+    struct Segment
+    {
+        int x;
+        int y;
+    };
+
+    bool isSegmentAtPosition(int x, int y) const;
+    Segment calculateNewHead() const;
+    void updateSegmentsIfSuccessfullMove(Segment const& newHead);
+    void addHeadSegment(Segment const& newHead);
+    void removeTailSegmentIfNotScored(Segment const& newHead);
+    void removeTailSegment();
+};
+
+class MapClass
+{
+    std::pair<int, int> m_mapDimension;
+    std::pair<int, int> m_foodPosition;
+
+    void updateFoodPosition(int x, int y, std::function<void()> clearPolicy);
+    void sendClearOldFood();
+    void sendPlaceNewFood(int x, int y);
+};
+
 } // namespace Snake
