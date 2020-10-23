@@ -215,6 +215,28 @@ Controller::Segment Controller::getNewHead() const
 
 void Controller::receive(std::unique_ptr<Event> e)
 {
+    if (e->getMessageId() == 0x20)//TeimeoutInd
+    {
+        handleTimePassed(*e);
+    }
+    else if (e->getMessageId() == 0x10)//DirectionInd
+    {
+        handleDirectionChange(*e);
+    }
+    else if (e->getMessageId() ==0x40)//FoodInd
+    {
+        handleFoodPositionChange(*e);
+    }
+    else if (e->getMessageId() ==0x42)//FoodResp
+    {
+        handleNewFood(*e);
+    }
+    else
+    {
+        /* code */
+    }
+    
+
     try {
         handleTimePassed(*dynamic_cast<EventT<TimeoutInd> const&>(*e));
     } catch (std::bad_cast&) {
