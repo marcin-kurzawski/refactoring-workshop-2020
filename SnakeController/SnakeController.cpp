@@ -217,6 +217,7 @@ void Controller::receive(std::unique_ptr<Event> e)
 {
     if (e->getMessageId() == 0x20)//TeimeoutInd
     {
+        
         handleTimePassed(*e);
     }
     else if (e->getMessageId() == 0x10)//DirectionInd
@@ -236,7 +237,7 @@ void Controller::receive(std::unique_ptr<Event> e)
         /* code */
     }
     
-
+    /*
     try {
         handleTimePassed(*dynamic_cast<EventT<TimeoutInd> const&>(*e));
     } catch (std::bad_cast&) {
@@ -253,7 +254,7 @@ void Controller::receive(std::unique_ptr<Event> e)
                 }
             }
         }
-    }
+    }*/
 }
 
 } // namespace Snake
